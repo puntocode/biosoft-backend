@@ -12,7 +12,7 @@ services:
     networks:
       - default
     depends_on:
-      - mysql
+      - postgres
 
   ####################################################################################################
   # Nginx
@@ -31,24 +31,41 @@ services:
       - php
 
   ####################################################################################################
+  # PostgreSQL
+  ####################################################################################################
+  postgres:
+    image: postgres:16
+    ports:
+        - 5432:5432
+    volumes:
+        - .docker/db/data:/var/lib/postgresql/data
+        - .docker/db/sql:/docker-entrypoint-initdb.d
+    networks:
+        - default
+    environment:
+        - POSTGRES_USER=fede
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_DB=biocode
+
+  ####################################################################################################
   # DATABASE (MySQL)
   ####################################################################################################
-  mysql:
-    image: mysql:8.1
-    ports:
-      - 3307:3306
-    volumes:
-      - .docker/db/data:/var/lib/mysql
-      - .docker/logs:/var/log/mysql
-      - .docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
-      - .docker/db/sql:/docker-entrypoint-initdb.d
-    networks:
-      - default
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: biosoft
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: password
+  # mysql:
+  #   image: mysql:8.1
+  #   ports:
+  #     - 3307:3306
+  #   volumes:
+  #     - .docker/db/data:/var/lib/mysql
+  #     - .docker/logs:/var/log/mysql
+  #     - .docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+  #     - .docker/db/sql:/docker-entrypoint-initdb.d
+  #   networks:
+  #     - default
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: biosoft
+  #     MYSQL_USER: admin
+  #     MYSQL_PASSWORD: password
 
   ####################################################################################################
   # Redis
@@ -118,20 +135,6 @@ services:
     #         MYSQL_USER: laravel_db_user
     #         MYSQL_PASSWORD: laravel_db_pass
 
-    ####################################################################################################
-    # PostgreSQL
-    ####################################################################################################
-    # db:
-    #     image: postgres:16
-    #     ports:
-    #         - 5432:5432
-    #     volumes:
-    #         - .docker/db/data:/var/lib/postgresql/data
-    #         - .docker/db/sql:/docker-entrypoint-initdb.d
-    #     environment:
-    #         - POSTGRES_USER=refactorian
-    #         - POSTGRES_PASSWORD=refactorian
-    #         - POSTGRES_DB=refactorian
 
     ####################################################################################################
     # pgAdmin
