@@ -6,7 +6,7 @@ services:
   php:
     build: .docker/php
     ports:
-      - 5173:5173
+      - 5174:5173
     volumes:
       - .:/var/www:cached
     networks:
@@ -36,7 +36,7 @@ services:
   postgres:
     image: postgres:16
     ports:
-        - 5432:5432
+        - 5433:5432
     volumes:
         - .docker/db/data:/var/lib/postgresql/data
         - .docker/db/sql:/docker-entrypoint-initdb.d
