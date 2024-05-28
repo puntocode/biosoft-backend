@@ -35,13 +35,12 @@ class BiolimpiezaController extends Controller
         try{
             $data['subject'] = $subject;
             $mail            = new BudgetMailable($data, $subject);
-            // Mail::to(['biolimpiezapy@gmail.com', 'vazquez182@gmail.com'])->send($mail);
-            Mail::to(['puntocodepy@gmail.com'])->send($mail);
+            Mail::to(['biolimpiezapy@gmail.com', 'vazquez182@gmail.com'])->send($mail);
             return true;
             
         }catch(Exception $ex){
             Log::error(__METHOD__, [ $ex->getMessage(), $data ]);
-            return ['message' => $ex->getMessage()];
+            return false;
         }
     
     }
