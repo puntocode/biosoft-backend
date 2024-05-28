@@ -41,7 +41,7 @@ class BiolimpiezaController extends Controller
             
         }catch(Exception $ex){
             Log::error(__METHOD__, [ $ex->getMessage(), $data ]);
-            return false;
+            return ['message' => $ex->getMessage()];
         }
     
     }
