@@ -16,10 +16,7 @@ class BudgetMailable extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(
-        protected array $data,
-    )
-    { }
+    public function __construct(protected array $data) { }
 
     /**
      * Get the message envelope.
